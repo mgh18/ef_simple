@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EF_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_People">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="website" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PersonCar" Relationship="EF_DBModel.FK_PersonCar_PersonCar" FromRole="tbl_People" ToRole="PersonCar" />
+  </EntityType>
+  <EntityContainer Name="EF_DBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_People" EntityType="Self.tbl_People" />
+    <EntitySet Name="PersonCar" EntityType="EF_DBModel.PersonCar" />
+    <AssociationSet Name="FK_PersonCar_PersonCar" Association="EF_DBModel.FK_PersonCar_PersonCar">
+      <End Role="tbl_People" EntitySet="tbl_People" />
+      <End Role="PersonCar" EntitySet="PersonCar" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonCar">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+    <Property Name="CarName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CarPlak" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_People" Relationship="EF_DBModel.FK_PersonCar_PersonCar" FromRole="PersonCar" ToRole="tbl_People" />
+  </EntityType>
+  <Association Name="FK_PersonCar_PersonCar">
+    <End Type="EF_DBModel.tbl_People" Role="tbl_People" Multiplicity="1" />
+    <End Type="EF_DBModel.PersonCar" Role="PersonCar" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_People">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonCar">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

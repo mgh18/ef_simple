@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Entity_Example.Models.tbl_People>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Main Form</h2>
+<a class="btn btn-success" href="/home/create">Create New</a>
+<table class="table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>email</th>
+        <th>Website</th>
+        <th>Command</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.email</td>
+            <td>@item.website</td>
+            <td>
+                <a class="btn btn-info btn-sm" href="/home/detail/@item.Id">Detail</a>
+                <a class="btn btn-warning btn-sm" href="/home/edit/@item.Id">Edit</a>
+                <a class="btn btn-danger btn-sm" href="/home/delete/@item.Id">Delete</a>
+            </td>
+        </tr>
+
+    }
+
+</table>
